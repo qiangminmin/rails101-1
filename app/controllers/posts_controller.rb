@@ -2,6 +2,11 @@ class PostsController < ApplicationController
 
   before_action :authenticate_user!, :only => [:new, :create]
 
+  def index
+
+    @groups = Group.all
+  end
+
   def new
     @group = Group.find(params[:group_id])
     @post = Post.new
@@ -20,6 +25,13 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+
+   flash[:alert] = "post deleted"
+   redirect_to groups_path
+  end
+
+
 
   private
 
@@ -27,6 +39,6 @@ class PostsController < ApplicationController
     params.require(:post).permit(:content)
   end
 
-end
+
 
 end
